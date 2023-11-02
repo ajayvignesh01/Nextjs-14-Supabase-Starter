@@ -3,16 +3,14 @@ import Step from './Step'
 import Code from '@/components/Code'
 
 const create = `
-create table notes (
-  id serial primary key,
-  title text
-);
-
-insert into notes(title)
-values
-  ('Today I created a Supabase project.'),
-  ('I added some data and queried it from Next.js.'),
-  ('It was awesome!');
+create table
+  public.notes (
+    id serial,
+    title text null,
+    user_id uuid not null default auth.uid (),
+    constraint notes_pkey primary key (id),
+    constraint notes_user_id_fkey foreign key (user_id) references auth.users (id) on update cascade on delete cascade
+  ) tablespace pg_default;
 `.trim()
 
 const server = `
@@ -78,8 +76,7 @@ export default function SignUpUserSteps() {
           >
             Table Editor
           </a>{' '}
-          for your Supabase project to create a table and insert some example
-          data. If you're stuck for creativity, you can copy and paste the
+          for your Supabase project to create a table using the
           following into the{' '}
           <a
             href="https://supabase.com/dashboard/project/_/sql/new"
@@ -92,6 +89,33 @@ export default function SignUpUserSteps() {
           and click RUN!
         </p>
         <Code code={create} />
+        <p>
+          Now you add add/remove data using a{' '}
+          <a
+              href='/notes'
+              className="font-bold hover:underline text-foreground/80"
+              target="_blank"
+              rel="noreferrer"
+          >
+            Server Component
+          </a>{', '}
+          <a
+              href='/notes/client'
+              className="font-bold hover:underline text-foreground/80"
+              target="_blank"
+              rel="noreferrer"
+          >
+            Client Component
+          </a>{', or '}
+          <a
+              href='/notes/swr'
+              className="font-bold hover:underline text-foreground/80"
+              target="_blank"
+              rel="noreferrer"
+          >
+            Client Component with SWR
+          </a>{' '}
+        </p>
       </Step>
 
       <Step title="Query Supabase data from Next.js">

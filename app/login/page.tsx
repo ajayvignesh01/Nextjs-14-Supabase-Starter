@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Messages from "./messages";
 import {signIn, signUp} from "./actions";
+import {Suspense} from "react";
 
 export default function Login() {
   return (
@@ -24,6 +25,27 @@ export default function Login() {
           <polyline points="15 18 9 12 15 6" />
         </svg>{' '}
         Back
+      </Link>
+
+      <Link
+          href={"/login/more"}
+          className="absolute right-8 top-8 py-2 px-4 rounded-md no-underline text-foreground bg-btn-background hover:bg-btn-background-hover flex items-center group text-sm"
+      >
+        More sign in options{' '}
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="ml-2 h-4 w-4 transition-transform group-hover:-translate-x-1 rotate-180"
+        >
+          <polyline points="15 18 9 12 15 6" />
+        </svg>
       </Link>
 
       <form
@@ -58,7 +80,9 @@ export default function Login() {
         >
           Sign Up
         </button>
-        <Messages/>
+        <Suspense>
+          <Messages/>
+        </Suspense>
       </form>
     </div>
   )
