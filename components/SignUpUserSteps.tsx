@@ -90,7 +90,7 @@ export default function SignUpUserSteps() {
         </p>
         <Code code={create} />
         <p>
-          Now you add add/remove data using a{' '}
+          Now you can add/remove data using a{' '}
           <a
               href='/notes'
               className="font-bold hover:underline text-foreground/80"
